@@ -109,7 +109,7 @@ export function initState<State>(initialState: State) {
 
         const StoreProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
             const [state, dispatch] = useReducer((state: State, action: Actions): State => {
-                const newState = { ...state }
+                const newState = structuredClone(state)
                 if (!action.type.startsWith('side-effect-')) {
                     reducersMap[action.type]({
                         state, sideEffect: (payload) => {
